@@ -43,13 +43,21 @@ function handleCalcDates(event) {
 
 let SetTimerID;
 
+
+var sound = new Howl({
+    src: ['../public/sound.mp3']
+  });
+  
+  
+
+
 function handleCalcTime(event) {
 
    // let { time } = event.target.elements;
 
 
     //TimerForm.innerHTML = "";
-    
+
     event.preventDefault();
     const getElementTime = document.getElementsByName('time')[0];
     console.log(getElementTime.value);
@@ -65,9 +73,19 @@ function handleCalcTime(event) {
 
    SetTimerID =setInterval(function (){
     getMillsecondTime =  getMillsecondTime-1000; 
-    TimeResult.innerHTML = getMillsecondTime/1000}
+    TimeResult.innerHTML = getMillsecondTime/1000
+    
+    if (getMillsecondTime <=0){
+        sound.play();
+        clearInterval(SetTimerID);
+    } 
+
+}
+
     , 1000);
 
+
+    
     
 
     
@@ -76,7 +94,7 @@ function handleCalcTime(event) {
 function handlerStopTime (){
     clearInterval(SetTimerID);  
     TimeResult.innerHTML = "";
-
+    sound.stop();
 };
 
 
