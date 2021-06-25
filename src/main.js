@@ -8,11 +8,13 @@ const dateCalcResult = document.getElementById("datecalc__result");
 const TimerForm = document.getElementById("timer");
 const idSectionToggleElement = document.getElementById("section_toggle");
 const TimeResult = document.getElementById("timecalc__result");
+const StopButtonForm = document.getElementById("stopTimer");
 
 dateCalcForm.addEventListener("submit", handleCalcDates);
 idSectionToggleElement.addEventListener("click",toggleSectionHandler);
 
-TimerForm.addEventListener("click", handleCalcTime);
+TimerForm.addEventListener("submit", handleCalcTime);
+StopButtonForm.addEventListener("click", handlerStopTime);
 
 function toggleSectionHandler(event) {
 
@@ -47,7 +49,8 @@ function handleCalcTime(event) {
 
 
     //TimerForm.innerHTML = "";
-    //event.preventDefault();
+    
+    event.preventDefault();
     const getElementTime = document.getElementsByName('time')[0];
     console.log(getElementTime.value);
     const getTimeValue = Duration.fromISOTime(getElementTime.value).toObject();
@@ -69,6 +72,14 @@ function handleCalcTime(event) {
 
     
 };
+
+function handlerStopTime (){
+    clearInterval(SetTimerID);  
+    TimeResult.innerHTML = "";
+
+};
+
+
 
 idSectionToggleElement.click();
 
