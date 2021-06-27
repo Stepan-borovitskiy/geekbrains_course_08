@@ -1,28 +1,40 @@
-export function start() {
-    alert(123);
-	window.timerId = window.setInterval(timer, 1000);
-    
+import { sound } from "./utils.js"
+
+let SetTimerID;
+
+let currentTimer;
+
+let timerListner = ()=>{};
+
+export function listenTimer(fn){
+    timerListner = fn;
 };
 
-//Эта функция останавливает таймер
-export function stop() {
-    alert(123);
-	window.clearInterval(window.timerId);
+
+export function startTimer(getMillsecondTime){
+
+    clearInterval(SetTimerID);
+
+     SetTimerID =setInterval(function (){
+             getMillsecondTime =  getMillsecondTime-1000; 
+             timerListner(getMillsecondTime);
+             //TimeResult.innerHTML = getMillsecondTime/1000;
+        
+         if (getMillsecondTime <=0){
+             sound.play();
+             clearInterval(SetTimerID);
+        } 
+    
+     }
+    
+         , 1000);
+
 };
 
-//TimerForm.addEventListener("submit", handleCalcTime);
-
-function handleCalcTime(event) {
-
-    //dateCalcResult.innerHTML = "";
-    event.preventDefault();
+export function stopTimer(){
+    clearInterval(SetTimerID);  
+    //TimeResult.innerHTML = "";
+    sound.stop();
     
-    console.log('submit');
-
-};
-
-function setTimeInterval (){
-
     
-
 };

@@ -1,6 +1,6 @@
 import { diffDates, diffToHtml } from "./modules/datecalc.js"; // 1
 import { formatError, Duration } from "./modules/utils.js"; // 2
-import { start, stop } from "./modules/timer.js";
+import { startTimer, stopTimer, listenTimer } from "./modules/timer.js";
 import { toggleDiv } from "./modules/navigation.js";
 
 const dateCalcForm = document.getElementById("datecalc");
@@ -41,12 +41,12 @@ function handleCalcDates(event) {
     else dateCalcResult.innerHTML = formatError("Для расчета промежутка необходимо заполнить оба поля"); // 5
 };
 
-let SetTimerID;
+// let SetTimerID;
 
 
-var sound = new Howl({
-    src: ['../public/sound.mp3']
-  });
+// var sound = new Howl({
+//     src: ['../public/sound.mp3']
+//   });
   
   
 
@@ -59,30 +59,41 @@ function handleCalcTime(event) {
     //TimerForm.innerHTML = "";
 
     event.preventDefault();
+    
+    
     const getElementTime = document.getElementsByName('time')[0];
     console.log(getElementTime.value);
+    
     const getTimeValue = Duration.fromISOTime(getElementTime.value).toObject();
     console.log(getTimeValue);
+    
     let getMillsecondTime = getTimeValue.hours*60*60*1000+getTimeValue.minutes*60*1000+getTimeValue.seconds*1000;
     console.log(getMillsecondTime);
 
+    startTimer(getMillsecondTime);
 
-   TimeResult.innerHTML = getMillsecondTime;
+    listenTimer((currentMillsecondTime)=> 
+        TimeResult.innerHTML = currentMillsecondTime
+    );
+
    
-   clearInterval(SetTimerID);
+   
+   //clearInterval(SetTimerID);
 
-   SetTimerID =setInterval(function (){
-    getMillsecondTime =  getMillsecondTime-1000; 
-    TimeResult.innerHTML = getMillsecondTime/1000
+  // SetTimerID =setInterval(timeToHtml(getMillsecondTime,TimeResult,SetTimerID),1000);
+
+//     SetTimerID =setInterval(function (){
+//      getMillsecondTime =  getMillsecondTime-1000; 
+//      TimeResult.innerHTML = getMillsecondTime/1000;
     
-    if (getMillsecondTime <=0){
-        sound.play();
-        clearInterval(SetTimerID);
-    } 
+//      if (getMillsecondTime <=0){
+//          sound.play();
+//          clearInterval(SetTimerID);
+//     } 
 
-}
+//  }
 
-    , 1000);
+//      , 1000);
 
 
     
@@ -92,9 +103,10 @@ function handleCalcTime(event) {
 };
 
 function handlerStopTime (){
-    clearInterval(SetTimerID);  
+    stopTimer();
+    //clearInterval(SetTimerID);  
     TimeResult.innerHTML = "";
-    sound.stop();
+    //sound.stop();
 };
 
 

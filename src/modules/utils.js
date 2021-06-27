@@ -5,3 +5,7 @@ export const formatError = text => `
     ${text}
 </span>
 `;
+
+export const sound = new Howl({
+    src: ['../public/sound.mp3']
+  });
