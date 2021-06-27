@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datetime superapp</title>
+    <script src="../src/main.js" type="module"></script>
+    <script src=../src/howler.js></script>
+    <!-- <script src="../src/timer.js" type="module"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> -->
+</head>
+
+<body>
+    <button id="section_toggle">Переключение между раздлами</button>
+    <form id="datecalc">
+        <div>
+            <h3>Калькулятор дат</h3>
+            
+        </div>
+               
+        <label>
+            <strong>Первая дата:</strong>
+            <input type="date" name="firstDate" />
+        </label>
+        <label>
+            <strong>Вторая дата:</strong>
+            <input type="date" name="secondDate" />
+        </label>
+        <button type="submit">Расчитать промежуток</button>
+        <p id="datecalc__result"></p>
+    </form>
+    <form id="timer">
+        <h3>Timer</h3>
+        <label>
+            <strong>Время:</strong>
+            <input type="text" name="time" value="00:00:00"/>
+
+        </label>
+        <input type="submit" value="start">
+        <input type="button" id="stopTimer" value="stop" >
+        <p id="timecalc__result"></p>
+    </form>
+</body>
+
+</html>
